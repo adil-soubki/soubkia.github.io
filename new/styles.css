@@ -151,7 +151,7 @@ article:last-child:after,
 article:last-child:before {
   display: none;
 }
-@media screen and (min-width: 40em) {
+@media only screen and (max-device-width: 320px) and (min-device-width: 568px) {
   .sticky .stick {
     position: fixed;
     top: 0;
