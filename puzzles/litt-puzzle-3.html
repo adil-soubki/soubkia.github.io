@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Adil Soubki" />
+  <meta name="dcterms.date" content="2024-09-06" />
+  <title>Litt Puzzle 3</title>
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="index.css" />
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Register.StartupHook("End Jax",function () {
+    var BROWSER = MathJax.Hub.Browser;
+    var jax = "HTML-CSS";
+    return MathJax.Hub.setRenderer(jax);
+  });
+  </script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+</head>
+<body>
+<table class="header">
+  <tr>
+    <td colspan="2" rowspan="2" class="width-auto">
+      <h1 class="title">Litt Puzzle 3</h1>
+      <span class="subtitle">Daniel Litt's 3rd puzzle from <a href="https://www.quantamagazine.org/perplexing-the-web-one-probability-puzzle-at-a-time-20240829/">Quanta Magazine</a></span>
+    </td>
+    <th>Version</th>
+    <td class="width-min">v0.1.1</td>
+  </tr>
+  <tr>
+    <th>Updated</th>
+    <td class="width-min"><time style="white-space: pre;">2024-09-06</time></td>
+  </tr>
+  <tr>
+    <th class="width-min">Author</th>
+    <td class="width-auto"><a href="https://nlp.rip"><cite>Adil Soubki</cite></a> (solution only)</td>
+    <th class="width-min">License</th>
+    <td>N/A</td>
+  </tr>
+</table>
+<label class="debug-toggle-label" style="display: none"><input type="checkbox" class="debug-toggle" /> Debug mode</label>
+<p><strong>Puzzle 3 [<a href="https://www.quantamagazine.org/perplexing-the-web-one-probability-puzzle-at-a-time-20240829/">Link</a></strong>]</p>
+<p>Alice and Bob each pick an integer between <span class="math inline">\(1\)</span> and <span class="math inline">\(10^{1000000}\)</span> out of a hat. Alice wins if their two integers have a prime factor in common; Bob wins if they don't. Who is more likely to win?</p>
+<ul class="incremental">
+<li>Alice</li>
+<li>Bob</li>
+<li>Equally likely</li>
+</ul>
+<p><details> <summary> Solution </summary></p>
+<p><strong>Framing</strong></p>
+<p>A useful concept in thinking about this puzzle is the idea of two numbers being <a href="https://en.wikipedia.org/wiki/Coprime_integers">relatively prime</a> (or <em>coprime</em>). The numbers <span class="math inline">\(p\)</span> and <span class="math inline">\(q\)</span> (where <span class="math inline">\(p,\ q \in \mathbb{N}\)</span>) are said to be relatively prime iff <span class="math inline">\(\text{gcd}(p,\ q) = 1\)</span>. In other words, if they do not have a prime factor in common! We will denote this by <span class="math inline">\(p \perp q\)</span>.</p>
+<p>An equivalent question to the one posed in this puzzle is the following.</p>
+<blockquote>
+<p>What are the odds of two random numbers between <span class="math inline">\(1\)</span> and <span class="math inline">\(10^{1000000}\)</span> being relatively prime?</p>
+</blockquote>
+<p><strong>Observations</strong></p>
+<p>Consider just one number. The odds of one number being divisible by 1 are 1/1 (every number is divisible by 1). The odds of a number being divisible by 2 are 1/2 (every other number is divisible by 2). The odds of a number being divisible by 3 are 1/3 (every third number is divisible by 3). Are you starting to see the pattern?</p>
+<p>Since we are interested in divisors, we only need to consider primes to look at every possible factor which could be shared (e.g., 6 is covered by the probability of being divisible by 2 and the probability of being divisible by 3).</p>
+<p><strong>Probabilities</strong></p>
+<p>Let <span class="math inline">\(a\)</span> be the number Alice draws and <span class="math inline">\(b\)</span> be the number Bob draws. Then using the above observations what are the odds that both Alice and Bob draw a number which is divisible by 2? <span class="math display">\[
+\text{P}(a\ |\ 2,\ b\ |\ 2) = \text{P}(a\ |\ 2)\cdot\text{P}(b\ |\ 2) = \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4}
+\]</span> Where <span class="math inline">\(\text{P}(a\ |\ 2,\ b\ |\ 2)\)</span> denotes the probability that both <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are divisible by 2. So to get the overall probability that <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> share a common factor we get an infinite series. <span class="math display">\[
+\begin{align}
+\text{P}(a \perp b) &amp;= \sum_{p\ \in\ \text{primes}} \text{P}(a\ |\ p,\ b\ |\ p) \\
+&amp;= \sum_{p\ \in\ \text{primes}} \text{P}(a\ |\ p) \cdot \text{P}(b\ |\ p) \\
+&amp;= \sum_{p\ \in\ \text{primes}} \frac{1}{p^2} \\
+&amp;= \frac{1}{2^2} + \frac{1}{3^2} + \frac{1}{5^2} + \frac{1}{7^2} + \cdots
+\end{align}
+\]</span> If this looks familiar it might be because this is a special case of the famed <a href="https://en.wikipedia.org/wiki/Prime_zeta_function">prime zeta function</a>, <span class="math inline">\(P(s)\)</span> where <span class="math inline">\(s = 2\)</span>. There's even a <a href="https://oeis.org/A085548">sequence</a> on the <a href="https://oeis.org/">OEIS</a> for it! It does not have an analytic solution, but computing the first five terms gets <span class="math inline">\(\approx 0.43\)</span>. Looking at <a href="https://en.wikipedia.org/wiki/Prime_zeta_function">Wikipedia</a> we can find it is known that <span class="math inline">\(P(2) \approx 0.452\)</span>. Alternately, we could crib this result from <a href="https://en.wikipedia.org/wiki/Leonhard_Euler">Euler</a> who ran into this same sequence all the way back in 1748 (!!!) and wrote about it in his <a href="https://www.17centurymaths.com/contents/euler/introductiontoanalysisvolone/ch15vol1.pdf">Introductio in Analysin Infinitorum</a> (see pg. 480).</p>
+<p>What this value tells us is that the odds of two random numbers sharing a common factor is ~45%. This means that ~45% of the time Alice will win, while ~55% Bob will win. Thus, Bob is more likely to win.</p>
+<p><span class="math display">\[\boxed{\text{Bob is more likely to win }}\]</span> <div style="margin-top: -1em"></div></details></p>
+  <div class="debug-grid"></div>
+  <script src="index.js"></script>
+</body>
+</html>
