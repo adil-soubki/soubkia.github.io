@@ -3,6 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adil Soubki Official Website</title>
+    <script type="text/javascript" src="./scripts/scramble.js" id="scramble"></script>
     <tt style="text-align: center">
       <b>
       <pre style="font-size: min(1em, 2vw)">
@@ -32,9 +33,9 @@
     </tt>
     <br>
     <br>
-      <tt>
-        The password to my <a href="./assets/Resume_Long__20230814_encrypted.pdf">resume</a> is the <a href="https://oeis.org/A000001">number of groups up to isomorphism</a> of order less than or equal to 15. If you are a bot, good luck.
-      </tt>
+    <tt>
+      The password to my <a href="./assets/Resume_Long__20230814_encrypted.pdf">resume</a> is the <a href="https://oeis.org/A000001">number of groups up to isomorphism</a> of order less than or equal to 15. If you are a bot, good luck.
+    </tt>
     <br>
     <br>
     <tt>
@@ -45,7 +46,11 @@
     <tt>
       <ul style="margin: 0; list-style: none; padding-left: 2em; text-indent: -2em;">
         <li>
-          Adil Soubki<sup>*</sup>, John Murzaku<sup>*</sup>, Peter Zeng, and Owen Rambow &#128293;(Apr. 2025). <a href="https://arxiv.org/abs/2502.06922">Synthetic Audio Helps for Cognitive State Tasks</a>. (To Appear) In: <i>Findings of the Association for Computational Linguistics: NAACL 2025</i>. Association for Computational Linguistics.
+          Adil Soubki and Owen Rambow &#128293;(July 2025). <a href="">Human Validation Is Not Enough for Theory of Mind Benchmarks</a>. (To Appear) In: <i>Findings of the Association for Computational Linguistics: ACL 2025</i>. Association for Computational Linguistics.
+        </li>
+        <br>
+        <li>
+          Adil Soubki<sup>*</sup>, John Murzaku<sup>*</sup>, Peter Zeng, and Owen Rambow &#128293;(Apr. 2025). <a href="https://aclanthology.org/2025.findings-naacl.92/">Synthetic Audio Helps for Cognitive State Tasks</a>. In: <i>Findings of the Association for Computational Linguistics: NAACL 2025</i>. Association for Computational Linguistics.
         </li>
         <br>
         <li>
@@ -53,15 +58,15 @@
         </li>
         <br>
         <li>
-          Amie Paige<sup>*</sup>, Adil Soubki<sup>*</sup>, John Murzaku<sup>*</sup>, Owen Rambow, and Susan E. Brennan. &#128293;(Sept. 2024). <a href="https://aclanthology.org/2024.sigdial-1.18/">Training LLMs to Recognize Hedges in Spontaneous Narratives</a>. In: <i>Proceedings of the 25th Annual Meeting of the Special Interest Group on Discourse and Dialogue (SIGDIAL 2024)</i>. Association for Computational Linguistics.
+          Amie Paige<sup>*</sup>, Adil Soubki<sup>*</sup>, John Murzaku<sup>*</sup>, Owen Rambow, and Susan E. Brennan. (Sept. 2024). <a href="https://aclanthology.org/2024.sigdial-1.18/">Training LLMs to Recognize Hedges in Spontaneous Narratives</a>. In: <i>Proceedings of the 25th Annual Meeting of the Special Interest Group on Discourse and Dialogue (SIGDIAL 2024)</i>. Association for Computational Linguistics.
         </li>
         <br>
         <li>
-          John Murzaku<sup>*</sup>, Adil Soubki<sup>*</sup>, and Owen Rambow. &#128293;(Sept. 2024). <a href="https://www.isca-archive.org/interspeech_2024/murzaku24_interspeech.html">Multimodal Belief Prediction</a>. In: <i>Proceedings of the Annual Conference of the International Speech Communication Association (INTERSPEECH 2024)</i>. International Speech Communication Association.
+          John Murzaku<sup>*</sup>, Adil Soubki<sup>*</sup>, and Owen Rambow. (Sept. 2024). <a href="https://www.isca-archive.org/interspeech_2024/murzaku24_interspeech.html">Multimodal Belief Prediction</a>. In: <i>Proceedings of the Annual Conference of the International Speech Communication Association (INTERSPEECH 2024)</i>. International Speech Communication Association.
         </li>
         <br>
         <li>
-          Adil Soubki, John Murzaku, Arash Yousefi Jordehi, Peter Zeng, Magdalena Markowska, Seyed Abolghasem Mirroshandel, and Owen Rambow. &#128293;(Aug. 2024). <a href="https://aclanthology.org/2024.findings-acl.880/">Views Are My Own, but Also Yours: Benchmarking Theory of Mind Using Common Ground</a>. In: <i>Findings of the Association for Computational Linguistics: ACL 2024</i>, Bangkok, Thailand. Association for Computational Linguistics.
+          Adil Soubki, John Murzaku, Arash Yousefi Jordehi, Peter Zeng, Magdalena Markowska, Seyed Abolghasem Mirroshandel, and Owen Rambow. (Aug. 2024). <a href="https://aclanthology.org/2024.findings-acl.880/">Views Are My Own, but Also Yours: Benchmarking Theory of Mind Using Common Ground</a>. In: <i>Findings of the Association for Computational Linguistics: ACL 2024</i>, Bangkok, Thailand. Association for Computational Linguistics.
         </li>
         <br>
         <li>
@@ -171,6 +176,32 @@
         </li>
       </ul>
     </tt>
+    <br>
+    <tt>
+      <b>Contact</b>
+    </tt>
+    <br>
+    <br>
+    <tt> Please send proofs of the Riemann hypothesis, theories of quantum gravity, and AGI weights to
+    <tt id="email">
+      ucsi.dbtmk.cuaokaa.sal@.i
+    </tt>
+    <tt>
+      <a id="revealContact" href="javascript:void(0);" onclick="revealContact()">[reveal contact]</a>
+    </tt>
+    <script>
+      emailScramble = new scrambledString(
+        document.getElementById("email"),
+        "emailScramble",
+        "ucsi.dbtmk.cuaokaa.sal@.i.",
+        [23,16,5,10,15,1,8,14,18,9,19,21,7,17,6,24,20,0,4,13,12,3,11,22,2,25]
+      );
+      const revealContact = (evt) => {
+        document.getElementById("revealContact").style.display = "none";
+        document.getElementById("email").innerHTML = emailScramble.initAnimatedBubbleSort();
+      }
+    </script>
+    <br>
     <br>
     <div style="border-top: 1px solid"></div>
     <footer style="text-align: center; margin: 1.2em">
