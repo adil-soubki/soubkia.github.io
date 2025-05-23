@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adil Soubki Official Website</title>
     <script type="text/javascript" src="./scripts/scramble.js" id="scramble"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <tt style="text-align: center">
       <b>
       <pre style="font-size: min(1em, 2vw)">
@@ -110,6 +111,19 @@
       I have designed hardware and software to control the GameBoy's Z80 processor with MIDI which made its way onto various maker blogs, including <a href="https://hackaday.com/2020/08/05/the-game-boy-as-a-midi-synthesiser/">Hackaday</a>.
       I have also written bots to play an <a href="https://playruneterra.com/en-us/">online card game</a>, that have a ~50% win rate against human players.
       I am Moroccan American.
+    </tt>
+    <br>
+    <br>
+    <tt id="view-count">
+      Loading view counter...
+      <script>
+        (async () => {
+          const worker = await Tesseract.createWorker("eng");
+          const ret = await worker.recognize("https://www.counter12.com/img-Zz8aYw3wyz1Ab4bc-3.gif");
+          document.getElementById("view-count").innerHTML = `This page has been viewed ${ret.data.text.trim()} times since May 23rd, 2025!`;
+          await worker.terminate();
+        })();
+      </script>
     </tt>
     <br>
     <br>
