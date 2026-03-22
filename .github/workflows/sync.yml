@@ -1,4 +1,4 @@
-name: Sync posts
+name: sync-posts
 
 on:
   schedule:
