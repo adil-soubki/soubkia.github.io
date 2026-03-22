@@ -1,0 +1,11 @@
+posts:
+  - doc_id: 1gIApFXNSTj3vTL8yRUJrtaiGm_FjDRxSd6U41bQns1k
+    title: READINGS
+    description: "A list of things I have been reading. Presence on this list does not necessarily mean that I particularly liked it, but if I did you will see an asterisk (\\*) at the end, and if I really liked it, maybe a couple asterisks (\\*\\*). Things I am interested in reading are marked [todo], things I started are marked [started], and things I likely won't finish are marked [incomplete]."
+    output: posts/readings.html
+    link_text: "Stuff I Read"
+  - doc_id: 1XknIkNIbxHO9epsYlv3fpx1daGpOxKSO_Fmqh-jKZTg
+    title: FRIDAY ALBUMS
+    description: "Inspired by a [friend](https://www.maths.cam.ac.uk/person/www24), I have been trying to listen to newly released albums every Friday. If I liked something I'll indicate it with an asterisk (\\*) and if I really liked it, maybe a couple (\\*\\*). Other stuff I check out will show up at the bottom somewhere."
+    output: posts/albums.html
+    link_text: "Friday Albums"
