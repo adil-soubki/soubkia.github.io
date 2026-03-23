@@ -45,6 +45,7 @@ HTML_TEMPLATE = """\
 
 def parse_inline(text: str) -> str:
     """Convert markdown inline markup to HTML, stripping the wrapping <p> tag."""
+    text = re.sub(r'~~(.+?)~~', r'<del style="text-decoration-thickness: 1.5px">\1</del>', text)
     return markdown.markdown(text).removeprefix('<p>').removesuffix('</p>')
 
 
