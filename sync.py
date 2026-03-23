@@ -58,7 +58,7 @@ def fetch_markdown(doc_id: str) -> str:
 
 
 LIST_STYLE = 'margin: 0; list-style: none; padding-left: 3em; text-indent: -3em; line-height: 1.5;'
-SUB_STYLE = 'margin: 0; list-style: none; padding-left: 3em; text-indent: -2.5em; line-height: 1.5;'
+SUB_STYLE = 'margin: 0; list-style: none; padding-left: 2.5em; text-indent: -2.5em; line-height: 1.5;'
 
 
 def parse_blocks(md: str) -> list[tuple]:
