@@ -25,7 +25,7 @@ HTML_TEMPLATE = """\
   <body style="max-width: 1080px; margin: 0 auto; padding: 0 8px">
     <tt style="text-align: center">
       <b>
-      <pre style="font-size: min(1em, 2vw)">{ascii_art}</pre>
+      <pre style="font-size: {font_size}">{ascii_art}</pre>
       </b>
     </tt>
     <tt>
@@ -177,10 +177,14 @@ def sync_post(post: dict) -> None:
     print(f"  Found {n_items} items in {n_blocks} block(s)")
 
     ascii_art = generate_ascii(title)
+    art_width = max(len(line.rstrip()) for line in ascii_art.splitlines() if line.strip())
+    # 150 ≈ viewport% / char_width_ratio (empirically calibrated)
+    font_size = f'min(1em, {150 / art_width:.2f}vw)'
     content = render_blocks(blocks)
 
     html = HTML_TEMPLATE.format(
         ascii_art=ascii_art,
+        font_size=font_size,
         description=parse_inline(description),
         content=content,
     )
