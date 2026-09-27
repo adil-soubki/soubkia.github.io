@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Packing Coloring Lab</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2210%22 cy=%2211%22 r=%226%22 fill=%22%238fb3e8%22/%3E%3Ccircle cx=%2222%22 cy=%2211%22 r=%226%22 fill=%22%23e9a17a%22/%3E%3Ccircle cx=%2216%22 cy=%2222%22 r=%226%22 fill=%22%237cc3a4%22/%3E%3C/svg%3E">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <button class="icon-btn only-mobile" id="btn-drawer" aria-label="Settings" title="Settings">☰</button>
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">Packing Coloring Lab</span>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div class="top-actions">
+      <button class="icon-btn" id="btn-undo" title="Undo (Z)" aria-label="Undo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+      <button class="icon-btn" id="btn-redo" title="Redo (Shift+Z)" aria-label="Redo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
+      <button class="icon-btn" id="btn-about" title="About &amp; rules" aria-label="About">?</button>
+    </div>
+  </header>
+
+  <aside class="sidebar" id="sidebar">
+    <section class="card" id="sec-graph">
+      <h2>Graph</h2>
+      <label class="field">
+        <span>Graph</span>
+        <select id="graph-select"></select>
+      </label>
+      <div id="graph-params"></div>
+      <div class="row">
+        <button class="btn primary" id="btn-apply-graph">Build</button>
+        <span class="muted small" id="graph-info"></span>
+      </div>
+      <p class="note" id="graph-note"></p>
+    </section>
+
+    <section class="card" id="sec-mode">
+      <h2>Play</h2>
+      <div class="segmented" role="tablist" id="mode-seg">
+        <button data-mode="puzzle" role="tab">Puzzle</button>
+        <button data-mode="free" role="tab">Free play</button>
+      </div>
+      <label class="field inline">
+        <span>Budget K</span>
+        <span class="stepper">
+          <button class="btn ghost" id="k-minus" aria-label="Decrease budget">−</button>
+          <input type="number" id="k-input" min="1" max="50" value="12">
+          <button class="btn ghost" id="k-plus" aria-label="Increase budget">+</button>
+        </span>
+      </label>
+      <div class="puzzle-only">
+        <label class="toggle"><input type="checkbox" id="opt-autofill" checked><span>Auto-fill forced vertices</span></label>
+        <label class="toggle"><input type="checkbox" id="opt-lookahead"><span>Lookahead (what-if reasoning)</span></label>
+        <p class="note small" id="lookahead-status"></p>
+      </div>
+      <div class="row wrap">
+        <button class="btn" id="btn-clear">Clear</button>
+        <button class="btn" id="btn-fill1" title="Color every uncolored vertex 1 where legal">Fill 1s</button>
+        <button class="btn" id="btn-greedy" title="First-fit: smallest legal color ≤ K everywhere">Greedy fill</button>
+      </div>
+    </section>
+
+    <section class="card" id="sec-solver">
+      <h2>Solver</h2>
+      <div class="row wrap">
+        <button class="btn" id="btn-hint" title="Reveal one vertex of some completion (H)">Hint</button>
+        <button class="btn" id="btn-check" title="Can the current position be completed within K?">Can I finish?</button>
+        <button class="btn" id="btn-finish" title="Complete the coloring">Finish it</button>
+        <button class="btn" id="btn-scratch" title="Search from an empty chunk: find a coloring or prove none exists">From scratch</button>
+      </div>
+      <label class="field inline">
+        <span>Time limit</span>
+        <select id="solver-time">
+          <option value="5000">5 s</option>
+          <option value="30000" selected>30 s</option>
+          <option value="120000">2 min</option>
+          <option value="600000">10 min</option>
+          <option value="0">No limit</option>
+        </select>
+      </label>
+      <div class="solver-status" id="solver-status" hidden>
+        <div class="spinner" aria-hidden="true"></div>
+        <div class="solver-text" id="solver-text"></div>
+        <button class="btn ghost small" id="btn-cancel">Cancel</button>
+      </div>
+      <p class="note small" id="solver-result"></p>
+    </section>
+
+    <section class="card" id="sec-stats">
+      <h2>Progress</h2>
+      <div class="progress"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="stat-grid" id="stat-grid"></div>
+      <div class="dist" id="dist"></div>
+      <p class="note small" id="stat-note"></p>
+    </section>
+
+    <section class="card" id="sec-share">
+      <h2>Save &amp; share</h2>
+      <div class="row wrap">
+        <button class="btn" id="btn-link">Copy link</button>
+        <button class="btn" id="btn-json-out">Export JSON</button>
+        <button class="btn" id="btn-json-in">Import…</button>
+      </div>
+      <h3>External SAT solver</h3>
+      <p class="note small">Export the chunk as DIMACS CNF for kissat / CaDiCaL, then import the solver's output.</p>
+      <label class="toggle"><input type="checkbox" id="opt-cnf-fixed"><span>Keep current colors fixed</span></label>
+      <div class="row wrap">
+        <button class="btn" id="btn-cnf">Export CNF</button>
+        <button class="btn" id="btn-sol-in">Import solution…</button>
+      </div>
+      <h3>Gallery</h3>
+      <div id="gallery" class="gallery"></div>
+    </section>
+
+    <section class="card" id="sec-display">
+      <h2>Display</h2>
+      <label class="toggle"><input type="checkbox" id="opt-ghosts" checked><span>Show surrounding copies</span></label>
+      <label class="toggle"><input type="checkbox" id="opt-zone" checked><span>Hover preview of exclusion zones</span></label>
+      <label class="field inline">
+        <span>Largest color</span>
+        <input type="number" id="r-input" min="4" max="50" value="30" title="Highest color the engine tracks (distance tables are built to this radius)">
+      </label>
+    </section>
+    <footer class="side-foot muted small">Keys: 1–9, 0 = 10, two digits for 11+ · E eraser · Z / Shift+Z · F fit · H hint · [ ] color</footer>
+  </aside>
+
+  <main class="stage" id="stage">
+    <canvas id="canvas" aria-label="Lattice"></canvas>
+    <div class="view-controls">
+      <button class="icon-btn" id="btn-zoom-in" aria-label="Zoom in">+</button>
+      <button class="icon-btn" id="btn-zoom-out" aria-label="Zoom out">−</button>
+      <button class="icon-btn" id="btn-fit" aria-label="Fit" title="Fit (F)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></button>
+    </div>
+    <div class="tooltip" id="tooltip" hidden></div>
+    <div class="toasts" id="toasts"></div>
+    <div class="palette-bar">
+      <div class="palette" id="palette" role="toolbar" aria-label="Colors"></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="icon-btn modal-close" id="modal-close" aria-label="Close">×</button>
+    <h2 id="modal-title"></h2>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+<script type="module" src="src/ui/app.js"></script>
+</body>
+</html>
