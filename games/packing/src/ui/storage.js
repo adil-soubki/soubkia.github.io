@@ -110,6 +110,12 @@ export const prefs = {
   save(p) { LS.set('pcl.prefs', p); },
 };
 
+// The last board this browser had open (a share-link hash), reopened on the next visit.
+export const lastBoard = {
+  load() { try { return localStorage.getItem('pcl.last') || ''; } catch { return ''; } },
+  save(h) { try { localStorage.setItem('pcl.last', h); } catch { /* ignore */ } },
+};
+
 export const bests = {
   get(key) { return LS.get('pcl.best', {})[key] || null; },
   offer(key, entry) {

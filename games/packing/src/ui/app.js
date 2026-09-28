@@ -13,10 +13,13 @@ import {
   $, el, toast, openModal, closeModal, modalOpen, buildGraphPanel, syncGraphPanel,
   renderPalette, renderChips, renderStats, renderGallery,
 } from './panels.js';
-import { buildHash, parseHash, decodeColors, encodeColors, sourceKey, bests, gallery, prefs, download } from './storage.js';
+import { buildHash, parseHash, decodeColors, encodeColors, sourceKey, bests, gallery, prefs, lastBoard, download } from './storage.js';
 import { celebrate } from './confetti.js';
 
-const DEFAULT_SOURCE = { kind: 'periodic', lattice: 'kagome', P: [[8, 0], [0, 8]] };
+// First visit: the subdivided Petersen graph S(P), 25 vertices, which needs exactly 5 colors.
+// A small board a newcomer can actually finish; kagome is offered as the open challenge.
+const DEFAULT_SOURCE = { kind: 'finite', preset: 'petersen', params: {}, sub: 1 };
+const DEFAULT_K = 5;
 
 class App {
   constructor() {
@@ -44,11 +47,10 @@ class App {
     attachInput($('canvas'), this);
     this.initWorkers();
 
-    const fromHash = this.tryHash(location.hash);
-    if (!fromHash) {
-      this.build(DEFAULT_SOURCE, { K: 16 });
-      if (!p.seenIntro) setTimeout(() => this.about(true), 400);
-    }
+    // A share link wins; otherwise reopen the last board from this browser; otherwise the starter.
+    const loaded = this.tryHash(location.hash) || this.tryHash(lastBoard.load(), { quiet: true });
+    if (!loaded) this.build(DEFAULT_SOURCE, { K: DEFAULT_K });
+    if (!p.seenIntro) setTimeout(() => this.about(true), 400);
     window.addEventListener('hashchange', () => { if (location.hash !== this.lastHash) this.tryHash(location.hash); });
     window.addEventListener('resize', () => { this.renderer.resize(); this.requestDraw(); });
     matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { this.renderer.readTheme(); this.requestDraw(); });
@@ -705,10 +707,11 @@ class App {
       const h = buildHash({ source: this.source, K: this.K, R: this.R, mode: this.mode, col: this.board.col });
       this.lastHash = h;
       if (h.length < 60000) history.replaceState(null, '', h);
+      lastBoard.save(h);
     }, 250);
   }
 
-  tryHash(hash) {
+  tryHash(hash, { quiet = false } = {}) {
     let st;
     try { st = parseHash(hash); } catch (e) { console.warn(e); return false; }
     if (!st) return false;
@@ -718,7 +721,7 @@ class App {
       this.build(st.source, { K: st.K || this.K, R: st.R || this.R, colors, mode: st.mode === 'free' || st.mode === 'puzzle' ? st.mode : null });
       return true;
     } catch (e) {
-      toast('Could not load that link: ' + e.message, { kind: 'bad' });
+      if (!quiet) toast('Could not load that link: ' + e.message, { kind: 'bad' });
       return false;
     }
   }
@@ -895,6 +898,7 @@ class App {
         <span>Kagome</span><b>unknown, possibly not even finite</b>
       </div>
       <p>Kagome sits between the square and triangular lattices: its balls grow like 2.5r², against 2r² for the square grid and 3r² for the triangular lattice. Any valid kagome chunk you find is a genuine upper bound.</p>
+      <p><b>Where to start:</b> the starter board is the subdivided Petersen graph (every edge of the Petersen graph split in two). It can be colored with 5 colors but not 4, so it makes a good first puzzle. After that, try the hexagonal lattice with 7 colors (its known answer), and when you are ready for an open problem, choose <b>Kagome lattice</b> in the Graph menu.</p>
       <p><b>Puzzle mode</b> works like Minesweeper. Choose a budget K. Every empty vertex shows how many colors it can still take; a vertex with one option is <span style="color:var(--warn)">forced</span> and a vertex with none is a <span style="color:var(--danger)">dead end</span>. Auto-fill plays forced moves in a chain reaction, and lookahead rules out options that would lead to a dead end. The solver can give hints, finish the chunk, or prove that no coloring exists.</p>
       <ul>
         <li>Click to place, right-click (or long-press) to erase; drag to pan, scroll or pinch to zoom.</li>
