@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The End of Computer Science</title>
+    <style>
+      body { font-family: monospace; line-height: 1.6; }
+      img { max-width: 100%; height: auto; }
+      .footnote-ref { text-decoration: none; }
+      .fn-tooltip {
+        position: absolute;
+        background: #f8f8f8;
+        border: 1px solid #000;
+        padding: 10px 10px;
+        font-size: 0.9em;
+        max-width: 320px;
+        line-height: 1.4;
+        z-index: 100;
+        display: none;
+      }
+      .fn-popup {
+        display: block;
+        background: #f8f8f8;
+        border: 1px solid #000;
+        padding: 10px 10px;
+        font-size: 1.1em;
+        line-height: 1.4;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 4px 0;
+      }
+      .fn-popup a { font-size: 0.85em; }
+      .frontmatter { display: block; text-align: center; }
+      .frontmatter span { display: inline-block; margin: 0 0.5em; }
+
+    </style>
+  </head>
+  <body style="max-width: 1080px; margin: 0 auto; padding: 0 8px">
+<!--     <tt style="text-align: center"> -->
+<!--       <b> -->
+<!--       <pre style="font-size: min(1em, 1.92vw)"> -->
+<!--   _______ _    _ ______   ______ _   _ _____     ____  ______    _____  _____  -->
+<!--  |__   __| |  | |  ____| |  ____| \ | |  __ \   / __ \|  ____|  / ____|/ ____| -->
+<!--     | |  | |__| | |__    | |__  |  \| | |  | | | |  | | |__    | |    | (___   -->
+<!--     | |  |  __  |  __|   |  __| | . ` | |  | | | |  | |  __|   | |     \___ \  -->
+<!--     | |  | |  | | |____  | |____| |\  | |__| | | |__| | |      | |____ ____) | -->
+<!--     |_|  |_|  |_|______| |______|_| \_|_____/   \____/|_|       \_____|_____/  -->
+<!--  ______ ______ ______ ______ ______ ______ ______ ______ ______ ______ ______  -->
+<!-- |______|______|______|______|______|______|______|______|______|______|______| -->
+
+<!-- </pre> -->
+<!--       </b> -->
+<!--     </tt> -->
+<br>
+<div style="width: 100%; overflow: hidden; margin-bottom: 2em; filter: saturate(3) grayscale() invert(); aspect-ratio: 2.3;">
+  <img src="../assets/THE-END-OF-CS-CROPPED.png"
+       style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
+</div>
+<div style="border-top: 1px solid; margin: 1em 0 1em;"></div>
+<!-- TODO: replace SUBSTACK_URL (here and in the footer) before publishing -->
+<tt class="frontmatter"><span>[<i>Written&nbsp;April&nbsp;2026 &middot; Posted&nbsp;October&nbsp;2026</i>]</span><span>[<i><a href="SUBSTACK_URL">Also on Substack</a></i>]</span></tt>
+<div style="border-top: 1px solid; margin: 1em 0 1.75em;"></div>
+    <tt>It is not uncommon for researchers in a field to feel like newcomers don't "get it", or conversely that the old masters were somehow "different" in a way that is being forgotten. When Watson and other new-fangled "molecular biologists" arrived at Harvard in the 1950s, E.O. Wilson described them as "land[ing] in the biology department like aliens in Manhattan." [<a href="https://www.harvardmagazine.com/2009/09/james-watson-edward-o-wilson-intellectual-entente">1</a>] Murray Gell-Mann, a co-discoverer of quarks but more importantly the inspiration for Ian Malcolm's character (portrayed by Jeff Goldblum) in Jurassic Park, complained that a whole (newer) generation of physicists had been "brain-washed" into ignoring fundamental questions in quantum mechanics [<a href="https://searchworks.stanford.edu/view/1094015">2</a>]. There are plenty of other examples but the point is that more or less everyone thinks at one point or another that the new way of doing things is wrong and ruining the field. That it's all going to come crashing down in some blazing fire and everyone will wake up and realize how far down the garden of forking paths we have fallen.</tt>
+    <br>
+    <br>
+    <tt>Anyway, this is more or less how I feel about so-called "computer science" starting roughly in the 90s. Except it's different this time and my opinion is somehow correct and true. Rather than explain why I picked the 90s or what I think was good about work in that tradition, I would prefer to just complain about some obvious problems with what was formerly known as "computer science" right now. I'll come back to the rest later.</tt>
+    <br>
+    <br>
+    <tt>The department of computer science, as it was conceived of in schools, has existed for the better part of 60 years with its primary purpose eventually converging to training code monkeys for the world's most boring companies. Until fairly recently, one simply put CS down as their major, chimped out for a few years learning a bunch of "useless" shit about linked lists, and then ascended to the nirvana that is getting paid 100k a year migrating wordpress databases (or whatever the fuck it is that developers do all day). </tt>
+    <br>
+    <br>
+    <tt>This has resulted in a bizarre incentive structure for departments with a fairly adversarial relationship between what the most career-oriented students might call "academic" computer science and what scrum certified PMs in patagonia jackets might call "software engineering". On the one hand, departments have a desire to teach students concepts that actually matter and train them so that at least some are prepared to go on to do meaningful research. On the other hand, half of these departments only exist due to the huge amount of funding being funneled in from "STEM" initiatives (Science, Technology, Engineering, and Money) and enrollment driven by industry demand. And that industry demands "engineers". It demands students that know how to scale a caching layer with Redis and how to use React.js or whatever the hell the frontend developers are using this week. It demands fodder for the onslaught of 1 million fake-ass jupyter notebook jobs analyzing network packets at finance firms and the like. What it does not demand is any understanding of what makes computation an interesting thing to study in the first place.<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup></tt>
+    <br>
+    <br>
+    <tt>So there is a key tension between essentially the part of "computer science" that is engineering, and the part that might as well just be called math (and indeed is sometimes housed in the math department). So what is a poor university administrator to do? One could split the departments. We could say, ok all the engineers who want to write SQL queries can go over here and the mathematicians who want to run their fingers through the monads can go back from whence they came. God, I wish that was what we did but unfortunately it is not so simple.</tt>
+    <br>
+    <br>
+    <tt>For one thing, <em>good</em> software engineers actually do need to know this stuff. That means that a fair number of faculty need to be employed to teach it to them, especially when your department is getting so many students that you don't even let people into the major unless they do well enough in their first couple years [<a href="https://www.insidehighered.com/news/students/academics/2023/11/02/high-demand-comp-sci-degrees-leads-enrollment-caps">3</a>]. Another, which might come off somehow even worse than everything else I have been saying, is that closeness to topics like math and physics seems to be seen as some sort of "legitimizing" veil. Everybody, it appears, wants to be part of the math and physics club right up until the point where they have to actually do any math or physics. This goes the other way too. If one is a mathematician with interests close enough, why stay in the department with (significantly) less money just to avoid being called a computer scientist? This all results in a sort of facultatively parasitic relationship that sustains the whole arrangement so long as money keeps coming in.</tt>
+    <br>
+    <br>
+    <tt>This byzantine tug-of-war began with the dot-com boom of the 90s precipitating an enormous demand for anything with a pulse that could write javascript and appears to be ending with the fast and hard realization that even AI models that are a few days out of date<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup> might automate these jobs away. Surely this environment could not possibly affect the research culture of the field, right? Right. Well, it depends on what you mean by "right" and "affect" and "this field". </tt>
+    <br>
+    <br>
+    <tt>I suppose it also depends on who you ask. If you were to ask, say Philip Resnik, he might say "I am beginning to think proper peer review is dead" [<a href="https://www.linkedin.com/posts/philip-resnik-a26593_im-beginning-to-think-proper-peer-review-activity-7407838407076302848-4mJs/">4</a>]. Ehud Reiter has said that "authors primarily think of papers as CV enhancers instead of scientific contributions, which says something pretty depressing about our scientific culture" [<a href="https://ehudreiter.com/2023/05/03/unresponsive-authors-and-experimental-flaws/">5</a>]. A sentiment arrived at by simply trying to reproduce the human evaluations from any single paper. There is a broad milieu among researchers, especially in the more applied (i.e., machine learning) oriented parts of computer science, that <em>something</em> is wrong. Even legends like Leslie Lamport have noted that "basically, programmers and many (if not most) computer scientists are terrified by math" [<a href="https://www.quantamagazine.org/computing-expert-says-programmers-need-more-math-20220517/">6</a>]. This is a perplexing observation for a field that I would say is more or less entirely math. The problem is no longer just about students. It has changed what the field values more broadly and those values have been shaped by a desire to churn out sloppers for the next startup that gets to light VC money on fire in the almighty name of customer acquisition costs. Even students who choose to pursue a PhD (a choice best made by only the most psychologically unemployable of students) <a href="https://kyunghyuncho.me/i-sensed-anxiety-and-frustration-at-neurips24/">aren't safe from this pressure</a>.</tt>
+    <br>
+    <br>
+    <tt>It's insane that I even need to say this but money is not bad. It is not a bad thing that there is so much interest and excitement around these topics. It is not some original sin that there are (or were) jobs in these areas and that is not what I am trying to convey. What I am trying to convey is that I believe this goes beyond the everpresent "new guy bad" mentality that is to be expected and that it is driven, at least in part, by a unique relationship between the field and industry. A dynamic that seems to be changing. </tt>
+    <br>
+    <br>
+    <tt>I'm not sure if it's changing in a way that really matters but it certainly is changing. For the first time since the dot-com crash, enrollment in CS programs at University of California schools declined (and by 6%) this fall [<a href="https://techcrunch.com/2026/02/15/the-great-computer-science-exodus-and-where-students-are-going-instead/">7</a>]. Nationally, CS enrollment at four-year colleges dropped by more than 8% [<a href="https://www.washingtonpost.com/technology/2026/04/13/computer-science-major-ai/">8</a>]. Don't quote me on this, but what will probably happen is that schools will rebrand their departments to focus on machine learning, introduce various "AI-first" majors, and everyone will continue on their merry way. This is already happening. MIT's new AI and decision making major is now the second-largest undergraduate program [<a href="https://capd.mit.edu/blog/2025/12/04/mits-aid-major-becomes-one-of-the-institutes-most-popular-undergraduate-programs/">9</a>]. The only UC school that didn't see a decline in CS enrollment was UCSD because they added a dedicated AI major [<a href="https://today.ucsd.edu/story/uc-san-diegos-new-ai-major-is-here">10</a>]. Everything is AI now. Who cares. Maybe that's good.</tt>
+    <br>
+    <br>
+    <tt>Donald Knuth has a nice quote about literate programming that I would like to take out of context. He says, "the language in which we express our ideas has a strong influence on our thought processes". Given the language I have been using, my thoughts on computer science are probably unsurprising. I often tell people that I consider being called a computer scientist derogatory. That I (truly and honestly) take offense to the label. That I don't respect it, categorically. This is despite having a deep respect and admiration for the "computer scientists" of Donald's generation.<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> They have a taste for problems and a style of thinking that seems almost untenable to emulate for a younger cohort of researchers that can feel pressured to publish something, <em>anything</em> really, on a three month cycle. Despite these differences in approach, basically everyone places this more rustic flavor of computer science on a pedestal.<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></tt>
+    <br>
+    <br>
+    <tt>These earlier computer scientists, people like Dijkstra and Knuth and Leslie and Rabin, were in some sense the last generation unperturbed by the influence of "tech", in its more modern conception.<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup> Simultaneously, the current generation of researchers are the last generation that will remember what it was like before the internet became the way that it is now (i.e., the end of 90s optimism). They will also be the last generation that will remember what it was like before you could ask Claude to write all your research code for you. The old guard is getting older. They are retiring and I worry about the future of a field that forgets the values that they held and the ideas they wanted to understand. Are we studying "computer science" or are we building engineering solutions for industry? Maybe it's fine to do both. Maybe that's what we are already doing. I don't know.</tt>
+    <br>
+    <br>
+    <tt><s>None of what I am saying is new or even very interesting. It's so commonplace that you could probably find TikToks that do a better job articulating it.</s></tt>
+    <br>
+    <br>
+    <tt>You might be reading this and thinking, "What does this person even want?" I guess I'm a bit of a romantic, but I'll tell you what I would like to see. I would like to see a generation of students that appreciates the joy that mathematics can bring. I want to see a community that looks at computers in a way that inspires others to create art and beauty on them, rather than in a way that inspires people to throw themselves off the golden gate bridge for them. I want to read papers where it is undeniably, unambiguously clear that they were written by an actual person who cares deeply about the topic, who is trying to understand and communicate ideas, who has opinions, who isn't trying to sell or bullshit me, who isn't (only) in it for the resume item. This should be overflowing from the page and pooling soundless words onto the floor and I want it to be the expectation, or at least the goal, that this is how our work is supposed to make you feel. I want, <em>to want</em> to be a computer scientist. If that day ever comes, you can rest assured that I'll write some irritating shit about it somewhere. In the meantime, don't call me one.</tt>
+  <div style="width: 100%; overflow: hidden; margin-top: 2em; filter: saturate(3) grayscale() invert(); aspect-ratio: 1.3;">
+    <img src="../assets/THE-END-OF-CS-CROPPED.png"
+         style="width: 100%; height: 100%; object-fit: cover; object-position: bottom;">
+  </div>
+<div class="footnote">
+    <br>
+    <div style="border-top: 1px solid;"></div>
+<ol>
+<li id="fn:1">
+<tt>It doesn't even seem to demand an understanding of what matters in software engineering. I feel like most students roll off the factory floor of these departments with an impression that what makes someone an engineer is having a loud keyboard and wearing <a href="https://knowyourmeme.com/memes/programming-socks">programmer socks</a> rather than thinking about the concepts that underlie performant and correct programs. They fixate on details like the language used or the latest library the cave dwellers over on hacker news are all grunting about when they should be focusing on the ideas that they want to put onto the computer and if they are even any good.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;&#xFE0E;</a></tt>
+</li>
+<li id="fn:2">
+<tt>You're still using Sonnet 4.6? Claude UltraKill 5.2 just came out last week. ChatGPT ProMax was released on preview 4 hours ago. DeepSeek-RFK-Jr-distill-0526 has just ended global western hegemony according to the Wall Street Journal. Gemini 4 has been——just kidding. Who the fuck uses Gemini.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;&#xFE0E;</a></tt>
+</li>
+<li id="fn:3">
+<tt>Many (including me) began in math or physics and ended up with the "computer scientist" label later on.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;&#xFE0E;</a></tt>
+</li>
+<li id="fn:4">
+<tt>A pedestal that you can tell must be labeled "math" because everybody wants to talk about it but nobody wants to actually do it.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;&#xFE0E;</a></tt>
+</li>
+<li id="fn:5">
+<tt>This is, of course, not strictly true. Leslie worked in industry for essentially his whole career, Dijkstra took an industry fellowship, Rabin did summer research at IBM and later worked at Bell Labs. The influence I mean here is from the more recent "tech" sector that often seeks extractive solutions from the academic research community. This might be to legitimize their company to investors, get essentially free engineering solutions, or provide a recruiting pathway for talented young students who would otherwise spend their career studying the fundamental nature of ideas when they could be pricing advertisements for minoxidil and various peptides.&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;&#xFE0E;</a></tt>
+</li>
+</ol>
+</div>
+    <div style="border-top: 1px solid"></div>
+    <footer style="text-align: center; margin: 1.2em">
+      <tt><a href="../index.html">Home</a> &middot; <a href="SUBSTACK_URL">Discuss this on Substack</a></tt>
+    </footer>
+    <script>
+      (function () {
+        var isTouchOnly = window.matchMedia('(pointer: coarse)').matches;
+        var tooltip = document.createElement('div');
+        tooltip.className = 'fn-tooltip';
+        document.body.appendChild(tooltip);
+
+        function getFootnoteHTML(fnId) {
+          var el = document.getElementById(fnId);
+          if (!el) return null;
+          var clone = el.cloneNode(true);
+          var back = clone.querySelector('.footnote-backref');
+          if (back) back.parentNode.removeChild(back);
+          return clone.innerHTML.trim();
+        }
+
+        document.querySelectorAll('a.footnote-ref').forEach(function (link) {
+          var fnId = link.getAttribute('href').slice(1);
+
+          if (isTouchOnly) {
+            link.addEventListener('click', function (e) {
+              e.preventDefault();
+              var existing = link.nextElementSibling;
+              if (existing && existing.classList.contains('fn-popup')) {
+                existing.parentNode.removeChild(existing);
+                return;
+              }
+              var popup = document.createElement('span');
+              popup.className = 'fn-popup';
+              popup.innerHTML = getFootnoteHTML(fnId) + '<a href="#' + fnId + '">[footnote&nbsp;↪&#xFE0E;]</a>';
+              link.parentNode.insertBefore(popup, link.nextSibling);
+            });
+          } else {
+            link.addEventListener('mouseenter', function () {
+              clearTimeout(hideTimer);
+              var html = getFootnoteHTML(fnId);
+              if (!html) return;
+              tooltip.innerHTML = html;
+              tooltip.style.display = 'block';
+              var rect = link.getBoundingClientRect();
+              var top = rect.bottom + window.scrollY + 4;
+              var left = rect.left + window.scrollX;
+              tooltip.style.left = '0px';
+              tooltip.style.top = top + 'px';
+              var tWidth = tooltip.offsetWidth;
+              tooltip.style.left = Math.max(0, Math.min(left, window.innerWidth - tWidth - 8)) + 'px';
+            });
+            link.addEventListener('mouseleave', hideSoon);
+          }
+        });
+
+        // Keep the tooltip open while hovering it so links inside are clickable.
+        var hideTimer;
+        function hideSoon() {
+          hideTimer = setTimeout(function () { tooltip.style.display = 'none'; }, 100);
+        }
+        tooltip.addEventListener('mouseenter', function () { clearTimeout(hideTimer); });
+        tooltip.addEventListener('mouseleave', hideSoon);
+      })();
+    </script>
+  </body>
+</html>
